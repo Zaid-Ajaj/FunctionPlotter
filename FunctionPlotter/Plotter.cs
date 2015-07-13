@@ -17,7 +17,7 @@ namespace FunctionPlotter
         public double yMax { get; private set; }
         public Color Background { get; set; }
         public Color AxisColor { get; set; }
-        public List<FunctionGraph> Functions { get; set; }
+        public List<Graph> Functions { get; set; }
 
 
         public Plotter(double xmin, double xmax, double ymin, double ymax)
@@ -36,7 +36,7 @@ namespace FunctionPlotter
         public Plotter(Func<double, double> f, double xmin, double xmax, double ymin, double ymax)
         {
             Initialize(xmin, xmax, ymin, ymax);
-            Functions.Add(new FunctionGraph { Function = f, Color = Color.Blue });
+            Functions.Add(new Graph { Function = f, Color = Color.Blue });
         }
 
         void Initialize(double xmin, double xmax, double ymin, double ymax)
@@ -51,7 +51,7 @@ namespace FunctionPlotter
             yMax = ymax;
             Background = Color.White;
             AxisColor = Color.Black;
-            Functions = new List<FunctionGraph>();
+            Functions = new List<Graph>();
         }
 
         void EmptyPlot()
@@ -137,14 +137,14 @@ namespace FunctionPlotter
         { 
             EmptyPlot();
             // generate points and draw points
-            Functions.ForEach(funcGraph =>
+            Functions.ForEach(graph =>
             {
                 var xs = Range(xMin, xMax, 0.001);
-                var ys = xs.Select(funcGraph.Function);
+                var ys = xs.Select(graph.Function);
                 xs = xs.Select(x => ScaleX(x));
                 ys = ys.Select(y => ScaleY(y));
                 // Color.Name == "0" -> means Color isn't intialized
-                var graphColor = funcGraph.Color.Name == "0" ? Color.Black : funcGraph.Color;
+                var graphColor = graph.Color.Name == "0" ? Color.Black : graph.Color;
                 DrawPoints(xs, ys, graphColor);
             });
             DrawHorizontalAxis();

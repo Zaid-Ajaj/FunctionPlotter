@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
-    <Compile Include="FunctionGraph.cs" />
+    <Compile Include="Graph.cs" />
     <Compile Include="LockBitmap.cs" />
     <Compile Include="Plotter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
