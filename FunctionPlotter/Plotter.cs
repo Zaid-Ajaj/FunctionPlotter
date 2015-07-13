@@ -43,6 +43,7 @@ namespace FunctionPlotter
 
         void Initialize(double xmin, double xmax, double ymin, double ymax)
         {
+            // default initialization
             Plot = new Bitmap(500, 500);
             Height = 500;
             Width = 500;
@@ -80,7 +81,7 @@ namespace FunctionPlotter
         double ScaleX(double x) => ScaleNumber(x, xMin, xMax, 0, Width);
         double ScaleY(double y) => Height - ScaleNumber(y, yMin, yMax, 0, Height);
 
-
+        // generate an interval of [k, n] with step
         IEnumerable<double> Range(double k, double n, double step)
         {
             for (double i = k; i <= n; i += step)
@@ -93,6 +94,8 @@ namespace FunctionPlotter
             var yValues = ys.ToArray();
             var bmp = new LockBitmap(Plot);
             bmp.LockBits();
+
+            // for each point within the plot-box, draw the point
             Parallel.For(0, xValues.Length, i => {
                 var x = xValues[i];
                 var y = yValues[i];
