@@ -17,9 +17,7 @@ namespace FunctionPlotter
         public double yMax { get; private set; }
         public Color Background { get; set; }
         public Color AxisColor { get; set; }
-
         public List<FunctionGraph> Functions { get; set; }
-
 
 
         public Plotter(double xmin, double xmax, double ymin, double ymax)
@@ -58,6 +56,8 @@ namespace FunctionPlotter
 
         void EmptyPlot()
         {
+            // using LockBitmap for faster SetPixel and faster GetPixel
+            // allows working with class Parallel
             var bmp = new LockBitmap(Plot);
             bmp.LockBits();
             Parallel.For(0, Width, x =>
@@ -70,6 +70,7 @@ namespace FunctionPlotter
             bmp.UnlockBits();
         }
 
+        // scales a number n within [min1, max1] to [min2, max2]
         double ScaleNumber(double n, double min1, double max1, double min2, double max2)
         {
             var oldRange = max1 - min1;
@@ -131,6 +132,7 @@ namespace FunctionPlotter
             }
         }
 
+        // draws the functions
         public void Draw()
         { 
             EmptyPlot();
