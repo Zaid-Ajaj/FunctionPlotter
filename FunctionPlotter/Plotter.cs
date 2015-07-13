@@ -57,7 +57,7 @@ namespace FunctionPlotter
         void EmptyPlot()
         {
             // using LockBitmap for faster SetPixel and faster GetPixel
-            // allows working with class Parallel
+            // allows working with class Parallel, making it super fast
             var bmp = new LockBitmap(Plot);
             bmp.LockBits();
             Parallel.For(0, Width, x =>
